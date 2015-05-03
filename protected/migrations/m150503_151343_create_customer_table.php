@@ -11,7 +11,7 @@ class m150503_151343_create_customer_table extends CDbMigration
 			'contact_number' => 'varchar(32)',
 			'address' => 'varchar(512)',
 			'company' => 'varchar(64)',
-	        'date_created' => 'datetime',
+	        'date_created' => 'datetime DEFAULT current_timestamp',
 			'INDEX `name` (`name`)',
 			'INDEX `nick_name` (`nick_name`)',
 		));
@@ -19,6 +19,6 @@ class m150503_151343_create_customer_table extends CDbMigration
 
 	public function safeDown()
 	{
-		$this->dropTable('Customer');
+		$this->dropTable('Contact');
 	}
 }
