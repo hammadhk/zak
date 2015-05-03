@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'Service':
  * @property integer $id
  * @property string $name
- * @property string $nick_name
  */
 class Service extends CActiveRecord
 {
@@ -27,10 +26,10 @@ class Service extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name, nick_name', 'length', 'max'=>64),
+			array('name', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, nick_name', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,7 +52,6 @@ class Service extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'nick_name' => 'Nick Name',
 		);
 	}
 
@@ -77,7 +75,6 @@ class Service extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('nick_name',$this->nick_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
