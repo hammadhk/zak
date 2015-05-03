@@ -1,6 +1,7 @@
 server {
     set $host_path "/var/www/zak";
-    access_log  /var/log/access.log;
+    access_log  /var/log/zak_access.log;
+    error_log   /var/log/zak_error.log;
 
     server_name  zak;
     root   $host_path;
