@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Garage CRM',
+	'theme'=>'blackboot',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -60,9 +61,9 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				array(
+				/* array(
 					'class'=>'CWebLogRoute',
-				),
+				), */
 			),
 		),
 
