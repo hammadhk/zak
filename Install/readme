@@ -1,0 +1,2 @@
+After First Check-out please execute the 'db_setup.sh' to create intial db.
+For nginx settings use the given 'zak' file in install directory. Also create a symlink in /var/www directory named as zak which will point to actual source of garage-crm
