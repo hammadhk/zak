@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'Job':
  * @property integer $id
+ * @property integer $contact_id
  * @property string $description
  * @property string $created_on
  * @property string $estimated_end_date
@@ -14,6 +15,7 @@
  * @property integer $final_price
  *
  * The followings are the available model relations:
+ * @property Contact $contact
  * @property JobService[] $jobServices
  */
 class Job extends CActiveRecord
@@ -34,13 +36,13 @@ class Job extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('description', 'required'),
-			array('actual_price, discount, final_price', 'numerical', 'integerOnly'=>true),
+			array('contact_id, description', 'required'),
+			array('contact_id, actual_price, discount, final_price', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>2048),
 			array('created_on, estimated_end_date, completed_on', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, description, created_on, estimated_end_date, completed_on, actual_price, discount, final_price', 'safe', 'on'=>'search'),
+			array('id, contact_id, description, created_on, estimated_end_date, completed_on, actual_price, discount, final_price', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +54,7 @@ class Job extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'contact' => array(self::BELONGS_TO, 'Contact', 'contact_id'),
 			'jobServices' => array(self::HAS_MANY, 'JobService', 'job_id'),
 		);
 	}
@@ -63,6 +66,7 @@ class Job extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'contact_id' => 'Contact',
 			'description' => 'Description',
 			'created_on' => 'Created On',
 			'estimated_end_date' => 'Estimated End Date',
@@ -92,6 +96,7 @@ class Job extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('contact_id',$this->contact_id);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('created_on',$this->created_on,true);
 		$criteria->compare('estimated_end_date',$this->estimated_end_date,true);
