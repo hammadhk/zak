@@ -25,6 +25,6 @@ $this->menu=array(
 		'description',
 		'expense',
 		'date',
-		'expense_item_id',
+		array('name' => 'expense', 'value' => $model->getItemName()),
 	),
 )); ?>

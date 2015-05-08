@@ -62,14 +62,18 @@ class DailyExpenseController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new DailyExpense;
+		$model=new DailyExpense($this->action->id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['DailyExpense']))
 		{
+			  
 			$model->attributes=$_POST['DailyExpense'];
+			/* echo '<pre>';
+			print_r($model->attributes);
+			exit; */
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

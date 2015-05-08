@@ -32,15 +32,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'date'); ?>
-		<?php echo $form->textField($model,'date'); ?>
-		<?php echo $form->error($model,'date'); ?>
-	</div>
-
-	<div class="row">
 		<?php	$records = DailyExpenseItem::model()->findAll();
 			    $list = CHtml::listData($records, 'id', 'name');
-			    echo CHtml::dropDownList('Item', null, $list, array('empty' => '(Select an item)'));
+			    echo $form->dropDownList($model, 'expense_item_id', $list, array('empty' => '(Select an item)'));
 			    echo $form->error($model,'expense_item_id'); 
     		?>
 	</div>

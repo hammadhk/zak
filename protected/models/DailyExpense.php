@@ -33,7 +33,7 @@ class DailyExpense extends CActiveRecord
 		return array(
 			array('expense, expense_item_id', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>512),
-			array('date', 'safe'),
+			//array('date, expense_item_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, description, expense, date, expense_item_id', 'safe', 'on'=>'search'),
@@ -61,7 +61,7 @@ class DailyExpense extends CActiveRecord
 			'id' => 'ID',
 			'description' => 'Description',
 			'expense' => 'Expense',
-			'date' => 'Date',
+			//'date' => 'Date',
 			'expense_item_id' => 'Expense Item',
 		);
 	}
@@ -106,7 +106,8 @@ class DailyExpense extends CActiveRecord
 		return parent::model($className);
 	}
 	
-	public static function getItemName() {
-		return $this->expense_item_id;
+	public function getItemName() {
+		
+		return (!empty($this->expenseItem)?$this->expenseItem->name:'');
 	}
 }

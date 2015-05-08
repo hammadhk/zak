@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('expense_item_id')); ?>:</b>
-	<?php echo CHtml::encode($data->expense_item_id); ?>
+	<?php echo CHtml::encode($data->getItemName()); ?>
 	<br />
 
 
