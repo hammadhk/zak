@@ -30,5 +30,29 @@ $this->menu=array(
 		'actual_price',
 		'discount',
 		'final_price',
+		'status',
 	),
 )); ?>
+
+<h2>Job Details</h2>
+
+<div class="subMenu">
+	<a href="<?php echo $this->createUrl('/jobService/create', array('job_id' => $model->id, 'contact_id' => $model->contact_id));?>">Add New Service</a>
+</div>
+<?php 
+
+$dataProvider =  new CArrayDataProvider('JobService');
+$dataProvider->setData($model->jobServices);
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'jobService-grid',
+	'dataProvider'=>$dataProvider,
+	'columns'=>array(
+		'item',
+		'actual_price',
+		array(
+			'class'=>'CButtonColumn',
+		),
+	),
+)); 
+?>

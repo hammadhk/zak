@@ -1,6 +1,6 @@
 <?php
 
-class JobController extends Controller
+class JobServiceController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class JobController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','items'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -62,17 +62,20 @@ class JobController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Job;
+		$model=new JobService;
+		if(!isset($_GET['job_id'])){
+			throw new CException("chal oe chal");
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Job']))
+		if(isset($_POST['JobService']))
 		{
-			$model->attributes=$_POST['Job'];
-			$model->contact_id = $_GET['contact_id'];
+			$model->attributes=$_POST['JobService'];
+			$model->job_id = $_GET['job_id'];
 			if($model->save())
-				$this->redirect(array('/contact/view','id'=>$model->contact_id));
+				$this->redirect(array('/job/view','id'=>$model->job_id));
 		}
 
 		$this->render('create',array(
@@ -92,9 +95,9 @@ class JobController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Job']))
+		if(isset($_POST['JobService']))
 		{
-			$model->attributes=$_POST['Job'];
+			$model->attributes=$_POST['JobService'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -123,7 +126,7 @@ class JobController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Job');
+		$dataProvider=new CActiveDataProvider('JobService');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -134,10 +137,10 @@ class JobController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Job('search');
+		$model=new JobService('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Job']))
-			$model->attributes=$_GET['Job'];
+		if(isset($_GET['JobService']))
+			$model->attributes=$_GET['JobService'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -148,12 +151,12 @@ class JobController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Job the loaded model
+	 * @return JobService the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Job::model()->findByPk($id);
+		$model=JobService::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -161,14 +164,38 @@ class JobController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Job $model the model to be validated
+	 * @param JobService $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='job-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='job-service-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
+		}
+	}
+	
+	public function actionItems()
+	{
+		$model = new JobService();
+		$model->attributes = $_POST['JobService'];
+		switch($model->model){
+			case 'Service':
+				$data = Service::model()->findAll();
+				break;
+			case 'Part':
+				$data = Part::model()->findAll();
+				break;
+			case 'Inventory':
+				$data = Service::model()->findAll();
+				break;
+			default:
+				$data = array();
+		}
+		$data=CHtml::listData($data, 'id', 'name');
+		foreach ($data as $value=>$name)
+		{
+			echo CHtml::tag('option', array('value'=>$value),CHtml::encode($name),true);
 		}
 	}
 }

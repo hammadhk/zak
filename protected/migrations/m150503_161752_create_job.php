@@ -13,6 +13,7 @@ class m150503_161752_create_job extends CDbMigration
 			'actual_price' => 'int(11) NOT NULL DEFAULT 0',
 			'discount' => 'int(11) NOT NULL DEFAULT 0',
 			'final_price' => 'int(11) NOT NULL DEFAULT 0',
+			'status' => 'ENUM("new", "in-progress", "waiting-for-third-party", "completed") NOT NULL DEFAULT "new"',
 			'FOREIGN KEY (contact_id) REFERENCES Contact(id)',
 		));
 	}

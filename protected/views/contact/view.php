@@ -30,3 +30,42 @@ $this->menu=array(
 		'date_created',
 	),
 )); ?>
+
+<h2>Provided Services</h2>
+
+<div class="subMenu">
+	<a href="<?php echo $this->createUrl('/job/create', array('contact_id' => $model->id));?>">Add New Job</a>
+</div>
+<?php 
+
+$dataProvider =  new CArrayDataProvider('Job');
+$dataProvider->setData($model->jobs);
+
+
+
+$this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'job-grid',
+	'dataProvider'=>$dataProvider,
+	'columns'=>array(
+		'id',
+		'status',
+		'description',
+		'created_on',
+		'actual_price',
+		array (
+			'class' => 'CButtonColumn',
+			'template' => '{view}{update}',
+			'buttons' => array (
+					'view' => array (
+							'label' => 'View Job Details',
+							'url' => 'Yii::app()->createUrl("/job", array("view"=>$data->id))' 
+					),
+					'update' => array (
+							'label' => 'View Job Details',
+							'url' => 'Yii::app()->createUrl("/job", array("update"=>$data->id))' 
+					) 
+			) 
+			) 
+		),
+)); 
+?>

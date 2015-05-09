@@ -35,6 +35,7 @@ class JobService extends CActiveRecord
 			array('job_id, item_id', 'required'),
 			array('job_id, item_id, actual_price', 'numerical', 'integerOnly'=>true),
 			array('model', 'length', 'max'=>32),
+			array('date_created', 'CDefaultValueValidator', 'value'=>date("Y-m-d H:i:s"), 'setOnEmpty' => false, 'on'=>'create'),
 			array('date_created', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -51,6 +52,7 @@ class JobService extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'job' => array(self::BELONGS_TO, 'Job', 'job_id'),
+			'service' => array(self::BELONGS_TO, 'Service', 'service_id'),
 		);
 	}
 
@@ -63,7 +65,7 @@ class JobService extends CActiveRecord
 			'id' => 'ID',
 			'job_id' => 'Job',
 			'item_id' => 'Item',
-			'model' => 'Model',
+			'model' => 'Service Type',
 			'actual_price' => 'Actual Price',
 			'date_created' => 'Date Created',
 		);
@@ -108,5 +110,18 @@ class JobService extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	
+	/**
+	 * 
+	 */
+	public function getItem()
+	{
+		switch($this->model){
+			case 'Service':
+				return Service::model()->findByPk($this->item_id)->name;
+				break;
+		}
+		return null;
 	}
 }

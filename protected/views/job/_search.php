@@ -56,6 +56,11 @@
 		<?php echo $form->textField($model,'final_price'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'status'); ?>
+		<?php echo $form->textField($model,'status',array('size'=>23,'maxlength'=>23)); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

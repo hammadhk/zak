@@ -11,6 +11,9 @@
  * @property string $address
  * @property string $company
  * @property string $date_created
+ *
+ * The followings are the available model relations:
+ * @property Job[] $jobs
  */
 class Contact extends CActiveRecord
 {
@@ -35,6 +38,7 @@ class Contact extends CActiveRecord
 			array('contact_number', 'length', 'max'=>32),
 			array('address', 'length', 'max'=>512),
 			array('date_created', 'safe'),
+			array('date_created', 'CDefaultValueValidator', 'value'=>date("Y-m-d H:i:s"), 'setOnEmpty' => false, 'on'=>'create'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, nick_name, contact_number, address, company, date_created', 'safe', 'on'=>'search'),
@@ -49,6 +53,7 @@ class Contact extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'jobs' => array(self::HAS_MANY, 'Job', 'contact_id'),
 		);
 	}
 

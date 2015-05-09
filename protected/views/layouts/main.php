@@ -32,6 +32,7 @@
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'Contacts', 'url'=>array('/contact/admin')),
 				array('label'=>'Jobs', 'url'=>array('/job/admin')),
+				array('label'=>'Parts', 'url'=>array('/part/admin')),
 				array('label'=>'DailyExpense', 'url'=>array('/dailyExpense/admin')),
 				array('label'=>'DailyExpenseItems', 'url'=>array('/dailyExpenseItem/admin')),
 // 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),

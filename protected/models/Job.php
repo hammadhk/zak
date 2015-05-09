@@ -13,6 +13,7 @@
  * @property integer $actual_price
  * @property integer $discount
  * @property integer $final_price
+ * @property string $status
  *
  * The followings are the available model relations:
  * @property Contact $contact
@@ -39,10 +40,12 @@ class Job extends CActiveRecord
 			array('contact_id, description', 'required'),
 			array('contact_id, actual_price, discount, final_price', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>2048),
+			array('status', 'length', 'max'=>23),
+			array('created_on', 'CDefaultValueValidator', 'value'=>date("Y-m-d H:i:s"), 'setOnEmpty' => false, 'on'=>'create'),
 			array('created_on, estimated_end_date, completed_on', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, contact_id, description, created_on, estimated_end_date, completed_on, actual_price, discount, final_price', 'safe', 'on'=>'search'),
+			array('id, contact_id, description, created_on, estimated_end_date, completed_on, actual_price, discount, final_price, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +77,7 @@ class Job extends CActiveRecord
 			'actual_price' => 'Actual Price',
 			'discount' => 'Discount',
 			'final_price' => 'Final Price',
+			'status' => 'Status',
 		);
 	}
 
@@ -104,6 +108,7 @@ class Job extends CActiveRecord
 		$criteria->compare('actual_price',$this->actual_price);
 		$criteria->compare('discount',$this->discount);
 		$criteria->compare('final_price',$this->final_price);
+		$criteria->compare('status',$this->status,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -119,5 +124,11 @@ class Job extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	
+	public function beforeValidate()
+	{
+		$this->final_price = $this->actual_price - $this->discount;
+		return parent::beforeValidate();
 	}
 }

@@ -33,6 +33,7 @@ class DailyExpense extends CActiveRecord
 		return array(
 			array('expense, expense_item_id', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>512),
+			array('date', 'CDefaultValueValidator', 'value'=>date("Y-m-d H:i:s"), 'setOnEmpty' => false, 'on'=>'create'),
 			//array('date, expense_item_id', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
