@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="widget-content padded"">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'daily-expense-item-form',
@@ -13,20 +13,27 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('class'=>'form-horizontal')
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php //echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>512)); ?>
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'name', array('class'=>'control-label col-md-2')); ?>
+		<div class="col-md-7">
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>512,'class'=>'form-control')); ?>
 		<?php echo $form->error($model,'name'); ?>
+		</div>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-group">
+		<label class='control-label col-md-2'></label>
+		<div class="col-md-7">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class'=>'btn btn-primary')); ?>
+		<?php echo CHtml::button('Cancel', array('submit'=>array('/dailyExpenseItem'), 'class'=>'btn btn-default-outline'));?>
+		</div>
 	</div>
 
 <?php $this->endWidget(); ?>

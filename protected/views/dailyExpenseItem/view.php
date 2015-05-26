@@ -16,12 +16,26 @@ $this->menu=array(
 );
 ?>
 
-<h1>View DailyExpenseItem #<?php echo $model->id; ?></h1>
+<div class='page-title'>
+	<h1>Daily Expense Item Details</h1>
+</div>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'name',
-	),
-)); ?>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="widget-container fluid-height clearfix">
+			<div class="heading">
+				<a class="btn btn-sm btn-primary-outline pull-right" href="javascript:history.go(-1);">Back</a>
+			</div>
+			<div class="widget-content padded clearfix">
+				<?php $this->widget('zii.widgets.CDetailView', array(
+					'data'=>$model,
+					'attributes'=>array(
+						'id',
+						'name',
+					),
+				)); ?>
+			</div>
+		</div>
+	</div>
+</div>

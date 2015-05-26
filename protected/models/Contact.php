@@ -85,7 +85,7 @@ class Contact extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($pagination = array())
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -98,9 +98,10 @@ class Contact extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('company',$this->company,true);
 		$criteria->compare('date_created',$this->date_created,true);
-
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>$pagination
 		));
 	}
 

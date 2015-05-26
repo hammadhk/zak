@@ -16,6 +16,16 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Contact <?php echo $model->id; ?></h1>
+<div class='page-title'>
+	<h1>Update Contact</h1>
+</div>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<div class='row'>
+	<div class='col-lg-12'>
+		<div class='widget-container fluid-height clearfix'>
+			<div class='widget-content padded clearfix'>
+				<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+			</div>
+		</div>
+	</div>
+</div>

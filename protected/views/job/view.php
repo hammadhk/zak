@@ -16,43 +16,75 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Job #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'contact_id',
-		'description',
-		'created_on',
-		'estimated_end_date',
-		'completed_on',
-		'actual_price',
-		'discount',
-		'final_price',
-		'status',
-	),
-)); ?>
-
-<h2>Job Details</h2>
-
-<div class="subMenu">
-	<a href="<?php echo $this->createUrl('/jobService/create', array('job_id' => $model->id, 'contact_id' => $model->contact_id));?>">Add New Service</a>
+<div class='page-title'>
+	<h1>Job Details</h1>
 </div>
-<?php 
 
-$dataProvider =  new CArrayDataProvider('JobService');
-$dataProvider->setData($model->jobServices);
+<div class="row">
+	<div class="col-lg-12">
+		<div class="widget-container fluid-height clearfix">
+			<div class="heading">
+				<a class="btn btn-sm btn-primary-outline pull-right" href="javascript:history.go(-1);">Back</a>
+			</div>
+			<div class="widget-content padded clearfix">
+			<?php $this->widget('zii.widgets.CDetailView', array(
+				'data'=>$model,
+				'attributes'=>array(
+					'id',
+					'contact_id',
+					'description',
+					'created_on',
+					'estimated_end_date',
+					'completed_on',
+					'actual_price',
+					'discount',
+					'final_price',
+					'status',
+				),
+			)); ?>
+			</div>
+		</div>
+	</div>
+</div>
 
-$this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'jobService-grid',
-	'dataProvider'=>$dataProvider,
-	'columns'=>array(
-		'item',
-		'actual_price',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); 
-?>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="widget-container fluid-height clearfix">
+
+			<div class='page-title padded'>
+				<h2>Sub Services</h2>
+			</div>
+			<div class="heading">
+				<a class='btn btn-sm btn-primary-outline pull-right' href="<?php echo $this->createUrl('/jobService/create', array('job_id' => $model->id));?>">Add New Service</a>
+			</div>
+				<?php 
+				
+				$dataProvider =  new CArrayDataProvider('JobService');
+				$dataProvider->setData($model->jobServices);
+				
+				$this->widget('zii.widgets.grid.CGridView', array(
+					'id'=>'jobService-grid',
+					'dataProvider'=>$dataProvider,
+					'columns'=>array(
+						'item',
+						'actual_price',
+						array(
+							'class' => 'CButtonColumn',
+							'template' => '{view}{update}',
+							'buttons' => array (
+									'view' => array (
+											'label' => 'View Sub-Service',
+											'url' => 'Yii::app()->createUrl("/jobService", array("view"=>$data->id))'
+									),
+									'update' => array (
+											'label' => 'Update Sub-Service',
+											'url' => 'Yii::app()->createUrl("/jobService", array("update"=>$data->id))'
+									)
+							)
+						),
+					),
+				)); 
+				?>
+		</div>
+	</div>
+</div>

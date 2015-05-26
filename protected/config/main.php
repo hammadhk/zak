@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Garage CRM',
-	'theme'=>'classic',
+	'theme'=>'se7en',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -30,6 +30,30 @@ return array(
 
 	// application components
 	'components'=>array(
+			
+		'widgetFactory' => array(
+				'widgets' => array(
+						'CLinkPager' => array(
+								'htmlOptions' => array(
+										'class' => 'pagination'
+								),
+								'header' => false,
+								'maxButtonCount' => 5,
+								'cssFile' => false,
+						),
+						'CGridView' => array(
+								'htmlOptions' => array(
+										'class' => 'widget-content padded clearfix'
+								),
+								'pagerCssClass' => 'dataTables_paginate paging_full_numbers',
+								'itemsCssClass' => 'table table-bordered table-striped dataTable',
+								'cssFile' => false,
+								'summaryCssClass' => 'dataTables_info',
+								'summaryText' => 'Showing {start} to {end} of {count} entries',
+								'template' => '<div class="dataTables_wrapper">{items}<div class="dataTables_info">{summary}</div>{pager}</div><br />',
+						),
+				),
+		),
 
 		'user'=>array(
 			// enable cookie-based authentication

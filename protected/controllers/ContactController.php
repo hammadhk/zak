@@ -6,7 +6,7 @@ class ContactController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -118,27 +118,23 @@ class ContactController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Contact');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
-	{
+	public function actionIndex()
+	{		
 		$model=new Contact('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Contact']))
 			$model->attributes=$_GET['Contact'];
 
-		$this->render('admin',array(
+// 		$dataProvider=new CActiveDataProvider('Contact',array('pagination'=>array('pageSize'=>'1')));
+		$dataProvider= $model->search();
+// 		$criteria = new CDbCriteria();
+// 		$criteria->limit = 2;
+// 		$dataProvider->criteria = $criteria;
+		
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
 			'model'=>$model,
 		));
 	}
