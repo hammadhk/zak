@@ -2,3 +2,6 @@
 /.project
 /composer.lock
 /.settings
+/PHPJasperXML
+/orangehrm
+/assets

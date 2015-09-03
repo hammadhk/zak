@@ -151,6 +151,7 @@
 								aria-hidden="true" class="se7en-feed"></span>Settings<b
 								class="caret"></b></a>
 							<ul class="dropdown-menu">
+								<li><a href="<?php echo Yii::app()->createUrl('/dailyExpense');?>">Manage Daily Expense</a></li>
 								<li><a href="<?php echo Yii::app()->createUrl('/dailyExpenseItem');?>">Manage Daily Expense Items</a></li>
 								<li><a href="<?php echo Yii::app()->createUrl('/service');?>">Manage Services</a></li>
 								<li><a href="<?php echo Yii::app()->createUrl('/part');?>">Manage Parts</a></li>

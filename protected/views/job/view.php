@@ -25,6 +25,7 @@ $this->menu=array(
 		<div class="widget-container fluid-height clearfix">
 			<div class="heading">
 				<a class="btn btn-sm btn-primary-outline pull-right" href="javascript:history.go(-1);">Back</a>
+				<?php echo Yii::app()->createUrl('/job/printPdf', array('id'=>$model->id));?>
 			</div>
 			<div class="widget-content padded clearfix">
 			<?php $this->widget('zii.widgets.CDetailView', array(
