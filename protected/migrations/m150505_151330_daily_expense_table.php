@@ -9,7 +9,7 @@ class m150505_151330_daily_expense_table extends CDbMigration
 				'id' => 'pk',
 				'description' => 'varchar(512)',
 				'expense' => 'int(11)',
-				'date' => 'datetime DEFAULT CURRENT_TIMESTAMP',
+				'date' => 'datetime',
 				'expense_item_id' => 'int(11)',
 				'FOREIGN KEY (expense_item_id) references DailyExpenseItem(id) '
 			));
